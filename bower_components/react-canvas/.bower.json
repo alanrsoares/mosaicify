@@ -1,0 +1,14 @@
+{
+  "name": "react-canvas",
+  "homepage": "https://github.com/Flipboard/react-canvas",
+  "_release": "4b31658b77",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "4b31658b779c3054f8f61ccfddaf83621f4f44b3"
+  },
+  "_source": "git://github.com/Flipboard/react-canvas.git",
+  "_target": "*",
+  "_originalSource": "react-canvas",
+  "_direct": true
+}

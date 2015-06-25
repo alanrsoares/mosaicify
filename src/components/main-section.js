@@ -6,23 +6,29 @@ export default class Main extends React.Component {
     return (
       <div className="splash-container">
         <div className="splash">
-          <input type="file"
-                 className="splash-head"
-                 ref="file"
-                 onChange={ this.handleFileChanged.bind(this) }
-          />
-          <p className="splash-subhead">
+          <div className="splash-head pure-button" onClick={ this.handleFileButtonClick.bind(this) }>
             Just select an image
+          </div>
+          <p className="splash-subhead">
           </p>
           <p>
             <a href="http://purecss.io" className="pure-button pure-button-primary">MosaicIfy</a>
           </p>
         </div>
+        <input type="file"
+               className="hidden"
+               ref="file"
+               onChange={ this.handleFileChanged.bind(this) }
+        />
       </div>
     );
   }
 
   handleFileChanged(e) {
     console.log(e.target.files[0]);
+  }
+
+  handleFileButtonClick() {
+    this.refs.file.getDOMNode().click();
   }
 }
