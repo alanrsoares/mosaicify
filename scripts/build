@@ -1,0 +1,6 @@
+#!/bin/bash
+
+[ -d ./build ] && rm -rd ./build
+mkdir build
+cp ./src/index.html ./build/index.html
+./node_modules/.bin/webpack --config config/webpack.config.js --watch

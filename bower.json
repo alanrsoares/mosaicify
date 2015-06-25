@@ -1,0 +1,20 @@
+{
+  "name": "react-mosaic-generator",
+  "version": "0.0.0",
+  "authors": [
+    "Alan R. Soares <alanrsoars@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "alt": "~0.16.10",
+    "immutable": "~3.7.4",
+    "react": "~0.13.3"
+  }
+}

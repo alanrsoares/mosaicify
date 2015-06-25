@@ -1,0 +1,5 @@
+#!/bin/bash
+
+[ -d ./dist ] && rm -rd ./dist
+./node_modules/.bin/webpack --config config/webpack.config.release.js
+cp ./src/index.html ./dist/index.html
