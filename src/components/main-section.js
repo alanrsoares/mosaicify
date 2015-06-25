@@ -1,7 +1,15 @@
 import React from 'react';
 import AppHeader from 'components/app-header';
+import ImagePreview from 'components/image-preview';
 
 export default class Main extends React.Component {
+  constructor() {
+    super();
+    this.state = {
+      fileUrl: null
+    };
+  }
+
   render() {
     return (
       <div className="splash-container">
@@ -10,9 +18,7 @@ export default class Main extends React.Component {
             Just select an image
           </div>
           <p className="splash-subhead">
-          </p>
-          <p>
-            <a href="http://purecss.io" className="pure-button pure-button-primary">MosaicIfy</a>
+            <ImagePreview file={ this.state.fileUrl } />
           </p>
         </div>
         <input type="file"
@@ -25,7 +31,11 @@ export default class Main extends React.Component {
   }
 
   handleFileChanged(e) {
-    console.log(e.target.files[0]);
+    let file = e.target.files[0];
+    if (!file.type.match(/^image\/(jpeg|jpg|png)$/)) {
+      return console.error('invalid format');
+    }
+    this.setState({ fileUrl: file.name });
   }
 
   handleFileButtonClick() {

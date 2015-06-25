@@ -15,7 +15,6 @@
   "devDependencies": {
     "alt": "~0.16.10",
     "immutable": "~3.7.4",
-    "react": "~0.13.3",
-    "react-canvas": "*"
+    "react": "~0.13.3"
   }
 }
