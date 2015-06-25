@@ -1,0 +1,25 @@
+{
+  "name": "react-mosaic-generator",
+  "version": "0.1.0",
+  "description": "A Mosaic Generator App built with react and canvas",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "canvas",
+    "react",
+    "html5",
+    "mosaic"
+  ],
+  "author": "@alanrsoares",
+  "license": "MIT",
+  "devDependencies": {
+    "alt": "^0.16.10",
+    "babel-core": "^5.6.6",
+    "babel-eslint": "^3.1.18",
+    "node-libs-browser": "^0.5.2",
+    "webpack": "^1.9.12",
+    "webpack-dev-server": "^1.9.0"
+  }
+}
