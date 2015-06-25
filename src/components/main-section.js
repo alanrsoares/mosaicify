@@ -6,7 +6,7 @@ export default class Main extends React.Component {
   constructor() {
     super();
     this.state = {
-      fileUrl: null
+      file: null
     };
   }
 
@@ -18,7 +18,7 @@ export default class Main extends React.Component {
             Just select an image
           </div>
           <p className="splash-subhead">
-            <ImagePreview file={ this.state.fileUrl } />
+            <ImagePreview file={ this.state.file } />
           </p>
         </div>
         <input type="file"
@@ -35,7 +35,7 @@ export default class Main extends React.Component {
     if (!file.type.match(/^image\/(jpeg|jpg|png)$/)) {
       return console.error('invalid format');
     }
-    this.setState({ fileUrl: file.name });
+    this.setState({ file });
   }
 
   handleFileButtonClick() {

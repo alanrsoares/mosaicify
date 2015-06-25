@@ -1,5 +1,15 @@
 import React from 'react';
 
+let getImage = (file) => {
+  return new Promise((resolve, reject) => {
+    var image = new Image();
+    image.src = URL.createObjectURL(file);
+    image.onload = function() {
+      resolve(image);
+    };
+  });
+};
+
 export default class ImagePreview extends React.Component {
   constructor(props) {
     super(props);
@@ -25,8 +35,12 @@ export default class ImagePreview extends React.Component {
       return;
     }
 
-    let image = new Image;
-    image.src = URL.createObjectURL(this.state.file);
+    getImage(this.state.file).then((image) => {
+      console.log(image);
+      let canvas = React.findDOMNode(this);
+      let context = canvas.getContext('2d');
+      context.drawImage(image, 0, 0, 200, 200);
+    });
   }
 
   render() {
