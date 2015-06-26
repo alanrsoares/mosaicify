@@ -18,27 +18,36 @@ export default class Main extends React.Component {
             Just select an image
           </div>
           <p className="splash-subhead">
-            <ImagePreview file={ this.state.file } />
+            { this.renderImagePreview() }
           </p>
         </div>
         <input type="file"
-               className="hidden"
                ref="file"
+               className="hidden"
                onChange={ this.handleFileChanged.bind(this) }
         />
       </div>
     );
   }
 
+  renderImagePreview() {
+    let { file } = this.state;
+    if (file && !file.type.match(/^image\/(jpeg|jpg|png)$/)) {
+      return (
+        <div>
+          Invalid image format
+        </div>
+      );
+    }
+    return <ImagePreview file={ file } />;
+  }
+
   handleFileChanged(e) {
     let file = e.target.files[0];
-    if (!file.type.match(/^image\/(jpeg|jpg|png)$/)) {
-      return console.error('invalid format');
-    }
     this.setState({ file });
   }
 
   handleFileButtonClick() {
-    this.refs.file.getDOMNode().click();
+    React.findDOMNode(this.refs.file).click();
   }
 }

@@ -4,10 +4,12 @@ let getImage = (file) => {
   return new Promise((resolve, reject) => {
     var image = new Image();
     image.src = URL.createObjectURL(file);
-    image.onload = function() {
-      resolve(image);
-    };
+    image.onload = () => resolve(image);
   });
+};
+
+let getImagePixelmap = (image) => {
+
 };
 
 export default class ImagePreview extends React.Component {
@@ -34,13 +36,13 @@ export default class ImagePreview extends React.Component {
     if (!this.state.file) {
       return;
     }
+    getImage(this.state.file).then(this.drawImage.bind(this));
+  }
 
-    getImage(this.state.file).then((image) => {
-      console.log(image);
-      let canvas = React.findDOMNode(this);
-      let context = canvas.getContext('2d');
-      context.drawImage(image, 0, 0, 200, 200);
-    });
+  drawImage(image) {
+    let canvas = React.findDOMNode(this);
+    let context = canvas.getContext('2d');
+    context.drawImage(image, 0, 0);
   }
 
   render() {
