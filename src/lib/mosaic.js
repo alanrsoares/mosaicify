@@ -4,12 +4,28 @@ const TILE_HEIGHT = 16;
 const TILE_WIDTH = 16;
 
 let unique = (items) => {
-  let uniqueItems = [];
-  return items.filter((i) => {
-    if (!(uniqueItems.indexOf(i) + 1)) {
-      return uniqueItems.push(i);
+  return items.reduce((uniqueItems, item) => {
+    if (!(uniqueItems.indexOf(item) + 1)) {
+      uniqueItems.push(item);
     }
-  });
+    return uniqueItems;
+  }, []);
+};
+
+let memoise = (fn) => {
+  let memo = {};
+  return (...xs) => {
+    let key = JSON.stringify(xs);
+    return memo[key] || (memo[key] = fn.apply(this, xs));
+  };
+};
+
+let compose = (...fns) => {
+  return (...args) => {
+    fns.reduceRight((xs, fn) => {
+      return [fn.apply(this, xs)];
+    }, args);
+  };
 };
 
 export default class Mosaic {
@@ -64,7 +80,8 @@ export default class Mosaic {
       data.push(
         this.rgbToHex( img.data[i]
                      , img.data[i + 1]
-                     , img.data[i + 2], colors
+                     , img.data[i + 2]
+                     , colors
                      )
       );
     }
