@@ -1,5 +1,7 @@
 import React from 'react';
 
+let merge = Object.assign;
+
 let getImage = (file) => {
   return new Promise((resolve, reject) => {
     var image = new Image();
@@ -15,9 +17,7 @@ let getImagePixelmap = (image) => {
 export default class ImagePreview extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      file: props.file
-    };
+    this.state = merge({}, props);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -46,15 +46,8 @@ export default class ImagePreview extends React.Component {
   }
 
   render() {
-    let width = 600;
-    let height = 600;
-
-    if (!this.props.file) {
-      return null;
-    }
-
-    return (
-      <canvas ref="canvas" width={ width } height={ height }></canvas>
-    );
+    return !this.state.file
+      ? null
+      : <canvas ref="canvas"></canvas>;
   }
 }
