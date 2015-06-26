@@ -7,8 +7,7 @@ let unique = (items) => {
   let uniqueItems = [];
   return items.filter((i) => {
     if (!(uniqueItems.indexOf(i) + 1)) {
-      uniqueItems.push(i);
-      return true;
+      return uniqueItems.push(i);
     }
   });
 };
