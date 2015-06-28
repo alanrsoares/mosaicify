@@ -1,4 +1,4 @@
-import 'babel-core/polyfill';
+import 'babel-core/browser-polyfill';
 import React from 'react';
 import AppContainer from 'components/app-container';
 

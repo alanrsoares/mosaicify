@@ -14,7 +14,8 @@ export default class Main extends React.Component {
     return (
       <div className="splash-container">
         <div className="splash">
-          <div className="splash-head pure-button" onClick={ this.handleFileButtonClick.bind(this) }>
+          <div className="splash-head pure-button"
+               onClick={ this.handleFileButtonClick.bind(this) }>
             Just select an image
           </div>
           <p className="splash-subhead">
@@ -33,11 +34,7 @@ export default class Main extends React.Component {
   renderImagePreview() {
     let { file } = this.state;
     if (file && !file.type.match(/^image\/(jpeg|jpg|png)$/)) {
-      return (
-        <div>
-          Invalid image format
-        </div>
-      );
+      return <div>Invalid image format</div>;
     }
     return <ImagePreview file={ file } />;
   }

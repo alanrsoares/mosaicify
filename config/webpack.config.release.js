@@ -5,6 +5,7 @@ var BowerWebpackPlugin = require('bower-webpack-plugin');
 
 var paths = {
   bower: path.resolve(__dirname, '..', 'bower_components'),
+  nodeModules: path.resolve(__dirname, '..', 'node_modules'),
   context: path.resolve(__dirname, '..', 'src'),
   output: path.resolve(__dirname, '..', 'dist')
 };
@@ -45,5 +46,6 @@ var config = {
 
 config.addVendor('react', paths.bower + '/react/react.js');
 config.addVendor('alt', paths.bower + '/alt/dist/alt.js');
+config.addVendor('babel-core/polyfill', paths.nodeModules + '/babel-core/browser-polyfill.js');
 
 module.exports = config;
