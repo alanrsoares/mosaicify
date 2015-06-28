@@ -8,7 +8,7 @@ export default class Main extends React.Component {
         <div className="container">
           <div className="navbar-header">
             <a className="navbar-brand" href="#">
-              <img alt="Brand" src="../assets/images/logo3.png"/>
+              <img alt="Brand" src="assets/images/logo3.png"/>
             </a>
           </div>
         </div>
