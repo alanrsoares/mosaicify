@@ -1,19 +1,19 @@
 # mosaicify
 Transform your pictures into mosaics
 
-Demo: http://alanrsoares.github.io/mosaicify/
+Check out the demo: http://alanrsoares.github.io/mosaicify/
 
-> Install npm dependencies
+### Install npm dependencies
 ```
   npm install
 ```
 
-> Install bower dependencies
+### Install bower dependencies
 ```
   bower install
 ```
 
-> start dev server
+### start dev server
 ```
   npm start
 ```
