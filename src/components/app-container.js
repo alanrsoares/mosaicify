@@ -5,7 +5,7 @@ import MainSection from 'components/main-section';
 export default class Main extends React.Component {
   render() {
     return (
-      <div id="app-container">
+      <div className="container">
         <AppHeader />
         <MainSection />
       </div>

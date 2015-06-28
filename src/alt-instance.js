@@ -1,3 +1,3 @@
-import Alt from 'alt';
+import Alt from 'alt/dist/alt';
 
 export default new Alt();
