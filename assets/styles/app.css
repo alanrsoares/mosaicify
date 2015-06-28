@@ -1,0 +1,37 @@
+body {
+  background-color: #1F8DD6;
+}
+
+.mosaic {
+  width: 100%;
+  margin: 10px 0;
+}
+
+.navbar-inverse {
+  background-color: #2D3E50;
+}
+
+.navbar-brand {
+  margin-top: -28px;
+}
+
+.navbar-brand img {
+  width: 140px;
+}
+
+#main-section {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.btn-file-upload {
+  font-size: 25px;
+  color: white;
+  border: 3px solid white;
+  background: transparent;
+  padding: 1em 1.6em;
+  font-weight: 100;
+  border-radius: 5px;
+  line-height: 1em;
+  text-transform: uppercase;
+}
