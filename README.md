@@ -20,8 +20,8 @@ Check out the demo: http://alanrsoares.github.io/mosaicify/
 
 ![alt tag](/src/assets/images/logo2.png)
 
-
-* Built with ES6 + React
+* no server required
+* Built with ES6 + React + html5 canvas
 * Bundled with WebPack
 * logo created with http://www.hipsterlogogenerator.com/
 
