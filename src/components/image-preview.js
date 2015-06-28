@@ -1,4 +1,5 @@
 import React from 'react';
+import Mosaic from 'lib/mosaic';
 
 let merge = Object.assign;
 

@@ -43,7 +43,7 @@ export default class Mosaic {
                     .reduceRight((xs, x) => xs + x);
   }
 
-  getImageFromFile(file) {
+  getImage(file) {
     let image = new Image();
     return new Promise((resolve, reject) => {
       image.src = URL.createObjectURL(file);
@@ -76,6 +76,7 @@ export default class Mosaic {
   getTileColorMap(img, colors) {
     let l = img.data.length;
     let data = [];
+    console.log(img.data);
     for (let i = 0; i < l; i += 4) {
       data.push(
         this.rgbToHex( img.data[i]
@@ -94,7 +95,7 @@ export default class Mosaic {
 
     context.clearRect(0, 0, targetCanvas.width, targetCanvas.height);
 
-    this.getImageFromFile(file).then((image) => {
+    this.getImage(file).then((image) => {
       let targetSize = this.getTargetSize(image, targetCanvas);
       let mosaicDimensions = this.getMosaicDimensions(targetSize);
       let pixelMap = this.getPixelMap(mosaicDimensions, image, colors);
