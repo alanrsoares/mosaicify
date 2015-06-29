@@ -2,7 +2,6 @@ import React from 'react';
 import AppHeader from 'components/app-header';
 import FileUploadButton from 'components/file-upload-button';
 import Mosaic from 'components/mosaic';
-import TileShapeSelector from 'components/tile-shape-selector';
 
 export default class Main extends React.Component {
   constructor() {
@@ -15,10 +14,12 @@ export default class Main extends React.Component {
   render() {
     return (
       <section id="main-section" className="container-fluid">
-        <FileUploadButton
-          label="Pick a photo"
-          className="btn-file-upload"
-          onChange={ this.handleFileChanged.bind(this) }/>
+        <div className="mosaic-controls">
+          <FileUploadButton
+            label="Pick a photo"
+            className="btn-file-upload"
+            onChange={ this.handleFileChanged.bind(this) }/>
+        </div>
         <div className="mosaic-container">
           { this.renderMosaic() }
         </div>
@@ -29,7 +30,7 @@ export default class Main extends React.Component {
   renderMosaic() {
     let { file } = this.state;
     if (file && !file.type.match(/^image\/(jpeg|jpg|png)$/)) {
-      return <div>Invalid image format</div>;
+      return <div className="alert alert-warning" role="alert">Invalid file format.</div>;
     }
     return <Mosaic file={ file } />;
   }

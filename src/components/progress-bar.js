@@ -1,6 +1,6 @@
 import React from 'react';
 import MosaicBuilder from 'lib/mosaic-builder';
-import MosaicStore from 'store/mosac-store';
+import MosaicStore from 'stores/mosaic-store';
 
 export default class ProgressBar extends React.Component {
   constructor() {
@@ -17,11 +17,12 @@ export default class ProgressBar extends React.Component {
   }
 
   render() {
-    if (!this.state.progress || this.state.progress === 100) {
+    if (!this.state.progress) {
       return null;
     }
 
     let percent = `${ this.state.progress }%`;
+
     return (
       <div className="progress">
         <div className="progress-bar"
