@@ -15,15 +15,14 @@ export default class Main extends React.Component {
   render() {
     return (
       <section id="main-section" className="container-fluid">
-        <div>
+        <div className="mosaic-controls">
           <FileUploadButton
             label="Pick a photo"
             className="btn-file-upload"
             onChange={ this.handleFileChanged.bind(this) }/>
-          <TileShapeSelector />
-          <div className="mosaic-container">
-            { this.renderMosaic() }
-          </div>
+        </div>
+        <div className="mosaic-container">
+          { this.renderMosaic() }
         </div>
       </section>
     );
@@ -32,7 +31,7 @@ export default class Main extends React.Component {
   renderMosaic() {
     let { file } = this.state;
     if (file && !file.type.match(/^image\/(jpeg|jpg|png)$/)) {
-      return <div>Invalid image format</div>;
+      return <div className="alert alert-warning" role="alert">Invalid file format.</div>;
     }
     return <Mosaic file={ file } />;
   }

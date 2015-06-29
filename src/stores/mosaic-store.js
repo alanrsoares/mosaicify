@@ -5,7 +5,7 @@ class MosaicStore {
   constructor() {
     this.bindActions(MosaicActions);
     this.file = null;
-    this.progress = 0;
+    this.progress = null;
   }
 
   onUpdateFile(file) {
