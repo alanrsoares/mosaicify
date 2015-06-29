@@ -9,17 +9,13 @@ body {
   background-color: #1F8DD6;
 }
 
-.mosaic {
-  width: 100%;
-  margin: 10px 0;
-}
-
 .navbar-inverse {
   background-color: #2D3E50;
 }
 
 .navbar-brand {
   margin-top: -28px;
+  z-index: 1033;
 }
 
 .navbar-brand img {
@@ -41,4 +37,10 @@ body {
   border-radius: 5px;
   line-height: 1em;
   text-transform: uppercase;
+  z-index: 1050;
+}
+
+.mosaic {
+  width: 100%;
+  margin: 10px 0;
 }

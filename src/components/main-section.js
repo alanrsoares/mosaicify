@@ -2,6 +2,7 @@ import React from 'react';
 import AppHeader from 'components/app-header';
 import FileUploadButton from 'components/file-upload-button';
 import Mosaic from 'components/mosaic';
+import TileShapeSelector from 'components/tile-shape-selector';
 
 export default class Main extends React.Component {
   constructor() {
@@ -19,6 +20,7 @@ export default class Main extends React.Component {
             label="Pick a photo"
             className="btn-file-upload"
             onChange={ this.handleFileChanged.bind(this) }/>
+          <TileShapeSelector />
           <div className="mosaic-container">
             { this.renderMosaic() }
           </div>

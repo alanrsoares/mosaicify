@@ -84,9 +84,9 @@ export default class MosaicBuilder {
         y: (canvas.height - size.y) / 2
       };
 
-      //let completed = 0;
+      let completed = 0;
 
-      //let progress = () => Math.ceil(completed / pixels.length * 100);
+      let progress = () => Math.ceil(completed / pixels.length * 100);
 
       let drawPixel = (p) => {
         let position = {
@@ -97,7 +97,7 @@ export default class MosaicBuilder {
         this.drawShape(ctx, position, tileShape);
         ctx.fillStyle = `#${p.color}`;
         ctx.fill();
-        //this.onProgressChanged(progress(++completed));
+        this.onProgressChanged(progress(++completed));
       };
 
       let drawColor = (color) => {
