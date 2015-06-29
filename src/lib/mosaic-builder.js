@@ -3,8 +3,6 @@ import { unique, memoise } from 'lib/utils';
 
 const NO_OP = () => {};
 
-let contains = (xs, x) => !(xs.indexOf(x) + 1);
-
 export default class MosaicBuilder {
   constructor(file) {
     this.file = file;
@@ -68,10 +66,13 @@ export default class MosaicBuilder {
 
     return tileColors;
   }
+
   // Draws a mosaic to a canvas object
   // Canvas -> Void
   drawTo(canvas, colors = 256, tileShape = 'Circle') {
     let ctx = canvas.getContext('2d');
+
+    // reset current context
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     this.getImage(this.file).then((img) => {
@@ -99,10 +100,9 @@ export default class MosaicBuilder {
         this.onProgressChange(progress(++completed));
       };
 
-      let drawColor = (color) => {
+      let drawColor = (color) =>
         pixels.filter((p) => p.color === color)
               .map(drawPixel);
-      };
 
       uniqueColors.map(drawColor);
 
