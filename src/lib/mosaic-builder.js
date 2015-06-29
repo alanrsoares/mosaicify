@@ -1,23 +1,9 @@
 import { TILE_WIDTH, TILE_HEIGHT } from '../../config/app-config';
+import { unique, memoise } from 'lib/utils';
 
 const NO_OP = () => {};
 
-let unique = (items) => {
-  return items.reduce((uniqueItems, item) => {
-    if (!(uniqueItems.indexOf(item) + 1)) {
-      uniqueItems.push(item);
-    }
-    return uniqueItems;
-  }, []);
-};
-
-let memoise = (fn) => {
-  let memo = {};
-  return (...xs) => {
-    let key = JSON.stringify(xs);
-    return memo[key] || (memo[key] = fn.apply(this, xs));
-  };
-};
+let contains = (xs, x) => !(xs.indexOf(x) + 1);
 
 export default class MosaicBuilder {
   constructor(file) {
@@ -82,9 +68,9 @@ export default class MosaicBuilder {
 
     return tileColors;
   }
-  // Draws a mosaic to a provided canvas object
+  // Draws a mosaic to a canvas object
   // Canvas -> Void
-  drawTo(canvas, colors = 256) {
+  drawTo(canvas, colors = 256, tileShape = 'Circle') {
     let ctx = canvas.getContext('2d');
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -98,31 +84,52 @@ export default class MosaicBuilder {
         y: (canvas.height - size.y) / 2
       };
 
-      let pixelsCompleted = 0;
+      //let completed = 0;
 
-      let progress = () => Math.ceil(pixelsCompleted / pixels.length * 100);
+      //let progress = () => Math.ceil(completed / pixels.length * 100);
 
       let drawPixel = (p) => {
+        let position = {
+          x: offSet.x + p.x * TILE_WIDTH,
+          y: offSet.y + p.y * TILE_HEIGHT
+        };
         ctx.beginPath();
-        ctx.arc( offSet.x + p.x * TILE_WIDTH
-               , offSet.y + p.y * TILE_HEIGHT
-               , TILE_WIDTH / 2
-               , 0
-               , 2 * Math.PI
-               , false
-               );
+        this.drawShape(ctx, position, tileShape);
         ctx.fillStyle = `#${p.color}`;
         ctx.fill();
-        this.onProgressChanged(progress(++pixelsCompleted));
+        //this.onProgressChanged(progress(++completed));
       };
 
       let drawColor = (color) => {
         pixels.filter((p) => p.color === color)
-              .map((p) => drawPixel(p));
+              .map(drawPixel);
       };
 
       uniqueColors.map(drawColor);
+
     });
+  }
+
+  drawShape(ctx, position, shape) {
+    this[`draw${shape}`].apply(this, [ctx, position]);
+  }
+
+  drawCircle(ctx, position) {
+    ctx.arc( position.x
+           , position.y
+           , TILE_WIDTH / 2
+           , 0
+           , 2 * Math.PI
+           , false
+           );
+  }
+
+  drawRectangle(ctx, position) {
+    ctx.rect( position.x
+            , position.y
+            , TILE_WIDTH
+            , TILE_WIDTH
+            );
   }
 
   // (Image, Canvas) -> Object
