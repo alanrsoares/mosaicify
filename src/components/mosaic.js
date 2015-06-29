@@ -1,5 +1,6 @@
 import React from 'react';
 import MosaicBuilder from 'lib/mosaic-builder';
+import MosaicActions from 'actions/mosaic-actions';
 
 let merge = Object.assign;
 
@@ -44,13 +45,7 @@ export default class Mosaic extends React.Component {
 
   drawMosaic() {
     let builder = new MosaicBuilder(this.state.file);
-    builder.onProgressChanged = this.onProgressChanged.bind(this);
+    builder.onProgressChange = MosaicActions.updateProgress;
     builder.drawTo(this.canvas, this.state.colors);
-  }
-
-  onProgressChanged(progress) {
-    if (progress !== this.state.progress) {
-      this.setState({ progress });
-    }
   }
 }

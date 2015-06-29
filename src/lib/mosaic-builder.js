@@ -8,7 +8,7 @@ let contains = (xs, x) => !(xs.indexOf(x) + 1);
 export default class MosaicBuilder {
   constructor(file) {
     this.file = file;
-    this.onProgressChanged = NO_OP;
+    this.onProgressChange = NO_OP;
   }
 
   // Number -> String
@@ -84,9 +84,8 @@ export default class MosaicBuilder {
         y: (canvas.height - size.y) / 2
       };
 
-      //let completed = 0;
-
-      //let progress = () => Math.ceil(completed / pixels.length * 100);
+      let completed = 0;
+      let progress = () => Math.ceil(completed / pixels.length * 100);
 
       let drawPixel = (p) => {
         let position = {
@@ -97,7 +96,7 @@ export default class MosaicBuilder {
         this.drawShape(ctx, position, tileShape);
         ctx.fillStyle = `#${p.color}`;
         ctx.fill();
-        //this.onProgressChanged(progress(++completed));
+        this.onProgressChange(progress(++completed));
       };
 
       let drawColor = (color) => {
