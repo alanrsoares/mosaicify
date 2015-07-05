@@ -13,10 +13,11 @@ Check out the demo: http://alanrsoares.github.io/mosaicify/
   bower install
 ```
 
-### start dev server
+### start server
 ```
-  npm start
+  npm run server
 ```
+and go to http://localhost:8765
 
 ![alt tag](/src/assets/images/logo2.png)
 
