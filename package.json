@@ -7,6 +7,7 @@
     "start": "./scripts/start",
     "build": "./scripts/build",
     "dist": "./scripts/dist",
+    "server": "./scripts/server",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

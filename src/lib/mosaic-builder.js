@@ -9,7 +9,7 @@ import { DEFAULT_COLORS
 
 const NO_OP = () => {};
 
-let colorImagesCache = {};
+let cache = {};
 
 export default class MosaicBuilder {
   constructor(file) {
@@ -97,7 +97,7 @@ export default class MosaicBuilder {
           x: offset.x + p.x * TILE_WIDTH,
           y: offset.y + p.y * TILE_HEIGHT
         };
-        ctx.drawImage( colorImagesCache[p.color]
+        ctx.drawImage( cache[p.color]
                      , position.x
                      , position.y
                      , TILE_WIDTH
@@ -110,7 +110,7 @@ export default class MosaicBuilder {
               .map(drawPixel);
 
       let drawColorParallel = (color, cb) => {
-        if (colorImagesCache[color]) {
+        if (color in cache) {
           cb(false);
           drawColor(color);
           return;
@@ -118,7 +118,7 @@ export default class MosaicBuilder {
         let pixel = new Image();
         pixel.src = COLOR_ENDPOINT + color;
         pixel.onload = () => {
-          colorImagesCache[color] = pixel;
+          cache[color] = pixel;
           cb(false);
           drawColor(color);
         };

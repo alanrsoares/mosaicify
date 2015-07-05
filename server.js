@@ -12,16 +12,13 @@ let app = express();
 
 app.get('/color/:color', (req, res) => {
   let { color } = req.params;
-  const complete = (buff) => {
+  let complete = (buff) => {
     res.writeHead(200, { 'Content-Type': 'image/png' });
     res.write(buff);
     res.end();
   };
 
-  if (color in cache) {
-    complete(cache[color]);
-    return;
-  }
+  if (color in cache) { return complete(cache[color]); }
 
   let gw = gm(TILE_WIDTH, TILE_HEIGHT, '#ffffff00')
     .options({ imageMagick: PORT !== 8765 })
