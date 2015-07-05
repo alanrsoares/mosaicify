@@ -7,15 +7,19 @@ export default class ForkMeOnGithubRibbon extends React.Component {
     return (
       <div>
         <div className="github-fork-ribbon-wrapper right-bottom visible-xs">
-          <div className="github-fork-ribbon">
-            <a href={ PROJECT_URL }>Fork me on GitHub</a>
-          </div>
+          { this.renderRibbon() }
         </div>
         <div className="github-fork-ribbon-wrapper right hidden-xs">
-          <div className="github-fork-ribbon">
-            <a href={ PROJECT_URL }>Fork me on GitHub</a>
-          </div>
+          { this.renderRibbon() }
         </div>
+      </div>
+    );
+  }
+
+  renderRibbon() {
+    return (
+      <div className="github-fork-ribbon">
+        <a href={ PROJECT_URL }>Fork me on Github</a>
       </div>
     );
   }

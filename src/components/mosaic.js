@@ -8,7 +8,7 @@ let defaultIfLess = (value, defaultValue) => value > defaultValue ? value : defa
 export default class Mosaic extends React.Component {
   constructor(props) {
     super(props);
-    this.state = merge({}, props, { progress: 0 });
+    this.state = merge({}, props);
   }
 
   componentDidMount() {
@@ -36,20 +36,12 @@ export default class Mosaic extends React.Component {
     return React.findDOMNode(this.refs.canvas);
   }
 
-  get isRendering() {
-    return this.state.progress;
-  }
-
   update() {
-    if (!this.state.file || this.isRendering) {
-      return;
-    }
     this.drawMosaic();
   }
 
   drawMosaic() {
     let builder = new MosaicBuilder(this.state.file);
-    builder.onProgressChange = MosaicActions.updateProgress;
     builder.drawTo(this.canvas, this.state.colors);
   }
 }

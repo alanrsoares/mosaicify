@@ -1,12 +1,19 @@
-import { TILE_WIDTH, TILE_HEIGHT } from '../../config/app-config';
+import async from 'async';
 import { unique, memoise } from 'lib/utils';
+import { DEFAULT_COLORS
+       , TILE_WIDTH
+       , TILE_HEIGHT
+       , PARALLEL_DOWNLOADS_LIMIT
+       , COLOR_ENDPOINT
+       } from '../../config/app-config';
 
 const NO_OP = () => {};
+
+let colorImagesCache = {};
 
 export default class MosaicBuilder {
   constructor(file) {
     this.file = file;
-    this.onProgressChange = NO_OP;
   }
 
   // Number -> String
@@ -69,7 +76,7 @@ export default class MosaicBuilder {
 
   // Draws a mosaic to a canvas object
   // Canvas -> Void
-  drawTo(canvas, colors = 256, tileShape = 'Circle') {
+  drawTo(canvas, colors = DEFAULT_COLORS) {
     let ctx = canvas.getContext('2d');
 
     // reset current context
@@ -80,55 +87,48 @@ export default class MosaicBuilder {
       let dimensions = this.getDimensions(size);
       let pixels = this.getPixels(dimensions, img, colors);
       let uniqueColors = unique(pixels.map((p) => p.color));
-      let offSet = {
+      let offset = {
         x: (canvas.width - size.x) / 2,
         y: (canvas.height - size.y) / 2
       };
 
-      let completed = 0;
-      let progress = () => Math.ceil(completed / pixels.length * 100);
-
       let drawPixel = (p) => {
         let position = {
-          x: offSet.x + p.x * TILE_WIDTH,
-          y: offSet.y + p.y * TILE_HEIGHT
+          x: offset.x + p.x * TILE_WIDTH,
+          y: offset.y + p.y * TILE_HEIGHT
         };
-        ctx.beginPath();
-        this.drawShape(ctx, position, tileShape);
-        ctx.fillStyle = `#${p.color}`;
-        ctx.fill();
-        this.onProgressChange(progress(++completed));
+        ctx.drawImage( colorImagesCache[p.color]
+                     , position.x
+                     , position.y
+                     , TILE_WIDTH
+                     , TILE_HEIGHT
+                     );
       };
 
       let drawColor = (color) =>
         pixels.filter((p) => p.color === color)
               .map(drawPixel);
 
-      uniqueColors.map(drawColor);
+      let drawColorParallel = (color, cb) => {
+        if (colorImagesCache[color]) {
+          cb(false);
+          drawColor(color);
+          return;
+        }
+        let pixel = new Image();
+        pixel.src = COLOR_ENDPOINT + color;
+        pixel.onload = () => {
+          colorImagesCache[color] = pixel;
+          cb(false);
+          drawColor(color);
+        };
+      };
 
+      async.mapLimit( uniqueColors
+                    , PARALLEL_DOWNLOADS_LIMIT
+                    , drawColorParallel
+                    );
     });
-  }
-
-  drawShape(ctx, position, shape) {
-    this[`draw${shape}`].apply(this, [ctx, position]);
-  }
-
-  drawCircle(ctx, position) {
-    ctx.arc( position.x
-           , position.y
-           , TILE_WIDTH / 2
-           , 0
-           , 2 * Math.PI
-           , false
-           );
-  }
-
-  drawRectangle(ctx, position) {
-    ctx.rect( position.x
-            , position.y
-            , TILE_WIDTH
-            , TILE_WIDTH
-            );
   }
 
   // (Image, Canvas) -> Object
