@@ -45,7 +45,6 @@ app.get('/color/:color', (req, res) => {
 });
 
 app.use(express.static(__dirname + '/build/'));
-app.use(express.static(__dirname + '/build/assets'));
 
 app.listen(PORT, () => {
   console.log(`mosaic server running on port ${PORT}`);
