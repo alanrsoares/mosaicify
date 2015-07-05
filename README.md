@@ -17,7 +17,7 @@ Check out the demo: http://alanrsoares.github.io/mosaicify/
 ```
   npm run server
 ```
-and go to http://localhost:8765/
+and go to (http://localhost:8765/)
 
 ![alt tag](/src/assets/images/logo2.png)
 
