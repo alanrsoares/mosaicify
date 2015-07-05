@@ -7,37 +7,41 @@ import express from 'express';
 import { TILE_WIDTH, TILE_HEIGHT } from './config/app-config';
 
 let PORT = process.env.PORT || 8765;
-const CACHE = {};
-
-const app = express();
+let cache = {};
+let app = express();
 
 app.get('/color/:color', (req, res) => {
   let { color } = req.params;
-  if (color in CACHE) {
-    complete(CACHE[color]);
-    return;
-  } else {
-    let gw = gm(TILE_WIDTH, TILE_HEIGHT, '#ffffff00')
-      .options({ imageMagick: PORT !== 8765 })
-      .fill('#' + color)
-      .stroke('white', 0)
-      .drawEllipse(TILE_WIDTH / 2 - 0.5, TILE_HEIGHT / 2 - 0.5, TILE_WIDTH / 2 + 0.5, TILE_HEIGHT / 2 + 0.5)
-      .stream('png');
-    let chunks = [];
-
-    gw.on('data', (chunk) => chunks.push(chunk));
-    gw.on('end', () => {
-      let buff = Buffer.concat(chunks);
-      CACHE[color] = buff;
-      complete(buff);
-    });
-    return;
-  }
-  function complete(buff) {
+  const complete = (buff) => {
     res.writeHead(200, { 'Content-Type': 'image/png' });
     res.write(buff);
     res.end();
+  };
+
+  if (color in cache) {
+    complete(cache[color]);
+    return;
   }
+
+  let gw = gm(TILE_WIDTH, TILE_HEIGHT, '#ffffff00')
+    .options({ imageMagick: PORT !== 8765 })
+    .fill('#' + color)
+    .stroke('white', 0)
+    .drawEllipse( TILE_WIDTH / 2 - 0.5
+                , TILE_HEIGHT / 2 - 0.5
+                , TILE_WIDTH / 2 + 0.5
+                , TILE_HEIGHT / 2 + 0.5 )
+    .stream('png');
+
+  let chunks = [];
+
+  gw.on('data', (chunk) => chunks.push(chunk));
+  gw.on('end', () => {
+    let buff = Buffer.concat(chunks);
+    cache[color] = buff;
+    complete(buff);
+  });
+
 });
 
 app.use(express.static(__dirname + '/build/'));
