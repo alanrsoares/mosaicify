@@ -4,7 +4,7 @@ import http from 'http';
 import url from 'url';
 import path from 'path';
 import express from 'express';
-import { SERVER_PORT, TILE_WIDTH, TILE_HEIGHT } from './config/app-config';
+import { SERVER_PORT, TILE_WIDTH, TILE_HEIGHT, TILE_BACKGROUND } from './config/app-config';
 
 let PORT = process.env.PORT || SERVER_PORT;
 let cache = {};
@@ -20,10 +20,10 @@ app.get('/color/:color', (req, res) => {
 
   if (color in cache) { return complete(cache[color]); }
 
-  let gw = gm(TILE_WIDTH, TILE_HEIGHT, '#ffffff00')
+  let gw = gm(TILE_WIDTH, TILE_HEIGHT, TILE_BACKGROUND)
     .options({ imageMagick: PORT !== 8765 })
     .fill('#' + color)
-    .stroke('white', 0)
+    .stroke(TILE_BACKGROUND, 0)
     .drawEllipse( TILE_WIDTH / 2 - 0.5
                 , TILE_HEIGHT / 2 - 0.5
                 , TILE_WIDTH / 2 + 0.5

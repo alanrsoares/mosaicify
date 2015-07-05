@@ -1,6 +1,7 @@
 export const TILE_SIZE = 16;
 export const TILE_HEIGHT = TILE_SIZE;
 export const TILE_WIDTH = TILE_SIZE;
+export const TILE_BACKGROUND = '#1F8DD6';
 export const DEFAULT_COLORS = 16;
 export const PARALLEL_DOWNLOADS_LIMIT = 16;
 export const SERVER_PORT = 8765;
