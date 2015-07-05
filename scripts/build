@@ -3,4 +3,5 @@
 [ -d ./build ] && rm -rd ./build
 mkdir build
 cp ./src/index.html ./build/index.html
+cp -R ./src/assets ./build/assets
 ./node_modules/.bin/webpack --config config/webpack.config.js --watch
