@@ -1,8 +1,6 @@
 import gm from 'gm';
 import express from 'express';
-import { SERVER_PORT
-       , TILE_WIDTH, TILE_HEIGHT
-       , TILE_BACKGROUND } from './config/app-config';
+import { SERVER_PORT, TILE_WIDTH, TILE_HEIGHT, TILE_BACKGROUND } from './config/app-config';
 
 let PORT = process.env.PORT || SERVER_PORT;
 let cache = {};
