@@ -3,14 +3,9 @@ Transform your pictures into mosaics
 
 Check out the demo: http://alanrsoares.github.io/mosaicify/
 
-### Install npm dependencies
+### Install dependencies
 ```
-  npm install
-```
-
-### Install bower dependencies
-```
-  bower install
+  npm run setup
 ```
 
 ### start server

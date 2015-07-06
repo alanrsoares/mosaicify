@@ -4,6 +4,7 @@
   "description": "A Mosaic Generator App built with react and canvas",
   "main": "index.js",
   "scripts": {
+    "setup": "./scripts/setup",
     "start": "./scripts/start",
     "build": "./scripts/build",
     "dist": "./scripts/dist",
