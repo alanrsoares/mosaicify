@@ -2,9 +2,10 @@ import gm from 'gm';
 import express from 'express';
 import { SERVER_PORT, TILE_WIDTH, TILE_HEIGHT, TILE_BACKGROUND } from '../config/app-config';
 
-let PORT = process.env.PORT || SERVER_PORT;
 let cache = {};
-let app = express();
+const app = express();
+const PORT = process.env.PORT || SERVER_PORT;
+const STATIC_FOLDER = `${__dirname}/../build/`;
 
 app.get('/color/:color', (req, res) => {
   let { color } = req.params;
@@ -37,8 +38,6 @@ app.get('/color/:color', (req, res) => {
 
 });
 
-app.use(express.static(__dirname + '/../build/'));
+app.use(express.static(STATIC_FOLDER));
 
-app.listen(PORT, () => {
-  console.log(`mosaic server running on port ${PORT}`);
-});
+app.listen(PORT, () => console.log(`mosaic server running on port ${PORT}`));
