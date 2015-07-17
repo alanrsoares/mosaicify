@@ -1,10 +1,12 @@
 export const unique = (items) => {
-  return items.reduce((uniqueItems, item) => {
-    if (!(uniqueItems.indexOf(item) + 1)) {
-      uniqueItems.push(item);
+  let map = items.reduce((uniqueItems, item) => {
+    let key = JSON.stringify(item);
+    if (!uniqueItems[key]) {
+      uniqueItems[key] = item;
     }
     return uniqueItems;
-  }, []);
+  }, {});
+  return Object.values(map);
 };
 
 export const memoise = (fn) => {
@@ -14,3 +16,7 @@ export const memoise = (fn) => {
     return memo[key] || (memo[key] = fn.apply(this, xs));
   };
 };
+
+export const merge = Object.assign;
+
+export const defaultIfLess = (value, defaultValue) => value > defaultValue ? value : defaultValue;
